@@ -1,6 +1,7 @@
 import { Layout, List } from "antd";
 import React from "react";
 import Navbar from "../components/Navbar";
+import QuestionsSection from "../components/QuestionsSection";
 import background from "./../assets/images/millionarieImage.jpg";
 
 const styles = {
@@ -30,6 +31,13 @@ const styles = {
   headerStyle: {
     backgroundColor: "#512057",
   },
+  content: {
+    backgroundImage: `url(${background})`,
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    backgroundPosition: "center",
+    opacity: "0.7",
+  },
 };
 
 const { Header, Sider, Content } = Layout;
@@ -52,16 +60,8 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
             dificulty="easy"
           />
         </Header>
-        <Content
-          style={{
-            backgroundImage: `url(${background})`,
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-            backgroundPosition: "center",
-            opacity: "0.7",
-          }}
-        >
-          Content
+        <Content style={styles.content}>
+          <QuestionsSection />
         </Content>
       </Layout>
       <Sider style={styles.sider} className="sider2">
