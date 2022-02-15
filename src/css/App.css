@@ -1,7 +1,19 @@
 .loginScreen {
-    width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.w100vh {
+  width: 100vw;
+}
+
+.h100vh {
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+.sider2 {
+    height: 100vh;
 }
