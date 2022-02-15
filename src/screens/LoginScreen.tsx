@@ -1,9 +1,17 @@
-import { Button, Card, Form, Input, Select } from "antd";
+import { Button, Card, Col, Input, Row, Select } from "antd";
 import React from "react";
+import { difficulty_values, trivia_categories } from "../constants/formValues";
+import { IFormValues } from "../types";
 
 const styles = {
+  mainRowStyles: {
+    height: "80%",
+    backgroundColor: "#e9ecef",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
   cardContainer: {
-    width: 500,
+    width: 700,
     borderRadius: 10,
     backgroundColor: "#ececec",
   },
@@ -13,16 +21,35 @@ const styles = {
     borderBottomColor: "#bfbfbf",
     borderBottomWidth: 1,
   },
+  secondRow: {
+    backgroundColor: "#e9ecef",
+    paddingTop: "20px",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
 };
 
 const { Option } = Select;
 
-interface LoginScreenProps {}
+interface LoginScreenProps {
+  formValues?: IFormValues;
+  setFormValues: (values: IFormValues) => void;
+}
 
-const LoginScreen: React.FC<LoginScreenProps> = () => {
-  function handleChange(value: any) {
-    console.log(`selected ${value}`);
-  }
+const LoginScreen: React.FC<LoginScreenProps> = ({
+  formValues,
+  setFormValues,
+}) => {
+  const handleChange = React.useCallback(
+    (field: any, value: string) => {
+      console.log(value);
+      
+      const aTemp = { ...formValues };
+      aTemp[field as keyof IFormValues] = value;
+      setFormValues(aTemp as IFormValues);
+    },
+    [formValues, setFormValues]
+  );
 
   return (
     <div className="loginScreen">
@@ -31,46 +58,66 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
         style={styles.cardContainer}
         headStyle={styles.cardHeadStyle}
         bodyStyle={{
-          display: "flex",
           justifyContent: "center",
         }}
       >
-        <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-          onFinish={(values) => console.log("Success:", values)}
-          onFinishFailed={(errorInfo) => console.log("Failed:", errorInfo)}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="username"
-            name="username"
-            rules={[{ required: true, message: "El nombre es requerido" }]}
+        <Row style={styles.mainRowStyles}>
+          <Row
+            style={{ width: "100%", padding: "20px 0" }}
+            justify="center"
+            align="middle"
           >
-            <Input />
-          </Form.Item>
+            <Col span={6}>User</Col>
+            <Input
+              placeholder="User"
+              required={true}
+              style={{ width: "50%" }}
+              onChange={(e) => handleChange("user", e.target.value)}
+            />
+          </Row>
 
-          <Select
-            defaultValue="lucy"
-            style={{ width: 120 }}
-            onChange={handleChange}
+          <Row
+            style={{ width: "100%", padding: "20px 0" }}
+            justify="center"
+            align="middle"
           >
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-            <Option value="disabled" disabled>
-              Disabled
-            </Option>
-            <Option value="Yiminghe">yiminghe</Option>
-          </Select>
+            <Col span={6}>Category</Col>
+            <Select
+              defaultValue={""}
+              style={{ width: "50%" }}
+              onChange={(e) => handleChange("category", e)}
+            >
+              <Option value={""}>Choose an option</Option>
+              {trivia_categories.map((x, i) => (
+                <Option value={x.id} key={i}>
+                  {x.name}
+                </Option>
+              ))}
+            </Select>
+          </Row>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+          <Row
+            style={{ width: "100%", padding: "20px 0" }}
+            justify="center"
+            align="middle"
+          >
+            <Col span={6}>Difficulty</Col>
+            <Select defaultValue={""} style={{ width: "50%" }} 
+              onChange={(e) => handleChange("difficulty", e)}>
+              <Option value={""}>Choose an option</Option>
+              {difficulty_values.map((x, i) => (
+                <Option value={x.value} key={i}>
+                  {x.label}
+                </Option>
+              ))}
+            </Select>
+          </Row>
+        </Row>
+        <Row style={styles.secondRow} justify="center" align="middle">
+          <Col>
+            <Button type="primary">Enter to play</Button>
+          </Col>
+        </Row>
       </Card>
     </div>
   );
