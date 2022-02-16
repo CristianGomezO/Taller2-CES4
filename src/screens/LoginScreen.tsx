@@ -53,6 +53,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
 
   return (
     <div className="loginScreen">
+      <div className="backgroundLogin"></div>
       <Card
         title="Inicio"
         style={styles.cardContainer}
