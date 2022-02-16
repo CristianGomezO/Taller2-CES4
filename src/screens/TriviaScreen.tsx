@@ -2,6 +2,7 @@ import { Layout, List } from "antd";
 import React from "react";
 import Navbar from "../components/Navbar";
 import QuestionsSection from "../components/QuestionsSection";
+import { data_earnings } from "../constants";
 import background from "./../assets/images/millionarieImage.jpg";
 
 const styles = {
@@ -32,11 +33,14 @@ const styles = {
     backgroundColor: "#512057",
   },
   content: {
+    width: "100%",
+    height: "89.6%",
     backgroundImage: `url(${background})`,
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     backgroundPosition: "center",
     opacity: "0.7",
+    backgroundColor: '#030231',
   },
 };
 
@@ -44,10 +48,7 @@ const { Header, Sider, Content } = Layout;
 
 interface TriviaScreenProps {}
 
-const data = [
-  1000000, 900000, 800000, 700000, 600000, 500000, 400000, 300000, 200000,
-  100000,
-];
+
 
 const TriviaScreen: React.FC<TriviaScreenProps> = () => {
   return (
@@ -56,17 +57,21 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
         <Header style={styles.headerStyle}>
           <Navbar
             playerName="Edward andres"
-            earnings={data[0]}
+            earnings={data_earnings[0]}
             dificulty="easy"
           />
         </Header>
-        <Content style={styles.content}>
-          <QuestionsSection />
+        <Content>
+          <div className="triviaContent">
+            <div style={{ ...styles.content, position: "absolute",}}>
+            </div>
+            <QuestionsSection />
+          </div>
         </Content>
       </Layout>
       <Sider style={styles.sider} className="sider2">
         <List
-          dataSource={data}
+          dataSource={data_earnings}
           style={{
             ...styles.list,
             justifyContent: "center",
@@ -76,7 +81,7 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
             <List.Item
               style={{
                 ...styles.listItemStyle,
-                backgroundColor: idx === data.length - 1 ? "#02686c" : "unset",
+                backgroundColor: idx === data_earnings.length - 1 ? "#02686c" : "unset",
               }}
             >
               <p style={styles.listLabelStyle}>{`$ ${item}`}</p>

@@ -6,6 +6,7 @@ import TriviaScreen from "./screens/TriviaScreen";
 import { IFormValues } from "./types";
 import showNotification from "./utils/notifications";
 import { startGameValidations } from "./utils/validations";
+import NotFoundScreen from "./screens/NotFoundScreen";
 
 function App() {
   const [formValues, setFormValues] = React.useState<IFormValues>();
@@ -48,6 +49,7 @@ function App() {
           }
         />
         <Route path="/trivia" element={<TriviaScreen />} />
+        <Route path="/*" element={<NotFoundScreen />} />
       </Routes>
     </div>
   );

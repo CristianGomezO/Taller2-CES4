@@ -1,5 +1,6 @@
 import { Button, Col, Row } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   label: {
@@ -20,10 +21,13 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ dificulty, earnings, playerName }) => {
+  let navigate = useNavigate();
   return (
     <Row justify="space-between">
       <Col>
-        <Button type="primary">
+        <Button onClick={() => {
+          navigate("/", { replace: true });
+        }} type="primary">
           Salir
         </Button>
         <label style={styles.label}>Player: </label>

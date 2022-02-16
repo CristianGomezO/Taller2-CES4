@@ -6,11 +6,63 @@
   align-items: center;
 }
 
+.triviaContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.questionTimer {
+  width: 70px;
+  height: 70px;
+  background-color: #031446;
+  border-radius: 100%;
+  border: 4px solid #fff;
+  margin: 10px;
+}
+
+.question {
+  width: 90%;
+  min-height: 70px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  background-color: #040444;
+}
+
+.answerBox {
+  margin: 10px;
+  width: 300px;
+  height: 70px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  background: rgb(11, 1, 32);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 1, 32, 1) 0%,
+    rgba(36, 13, 68, 1) 40%,
+    rgba(65, 19, 130, 1) 100%
+  );
+}
+
+.notfound {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-image: url("/src/assets/images/notFoundScreen.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #f8f8f8;
+}
+
 .backgroundLogin {
   width: 100vw;
   height: 100vh;
   position: absolute;
-  background-image: url('/src/assets/images/millionaire_.jpg');
+  background-image: url("/src/assets/images/millionaire_.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -22,13 +74,13 @@
 }
 
 .h100vh {
-    height: 100vh;
+  height: 100vh;
 }
 
 .sider2 {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: blue
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
 }
