@@ -21,7 +21,7 @@ interface QuestionsSectionProps {
   questions: IQuestions[];
 }
 
-const QuestionsSection: React.FC<QuestionsSectionProps> = ({ questions }) => {
+const QuestionsSection: React.FC<QuestionsSectionProps> = ({ questions = [] }) => {
   const [correctAnswerPosition, setCorrectAnswerPosition] =
     React.useState<number>();
   const [answers, setAnswers] = React.useState<Array<string>>([]);
@@ -51,7 +51,9 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({ questions }) => {
   }, [questions]);
 
   useEffect(() => {
-    answersFunction();
+    if(questions.length){
+      answersFunction();
+    }
   }, [answersFunction, questions]);
 
   return (
