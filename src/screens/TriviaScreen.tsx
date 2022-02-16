@@ -40,15 +40,13 @@ const styles = {
     backgroundAttachment: "fixed",
     backgroundPosition: "center",
     opacity: "0.7",
-    backgroundColor: '#030231',
+    backgroundColor: "#030231",
   },
 };
 
 const { Header, Sider, Content } = Layout;
 
 interface TriviaScreenProps {}
-
-
 
 const TriviaScreen: React.FC<TriviaScreenProps> = () => {
   return (
@@ -63,8 +61,7 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
         </Header>
         <Content>
           <div className="triviaContent">
-            <div style={{ ...styles.content, position: "absolute",}}>
-            </div>
+            <div style={{ ...styles.content, position: "absolute" }}></div>
             <QuestionsSection />
           </div>
         </Content>
@@ -81,7 +78,8 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
             <List.Item
               style={{
                 ...styles.listItemStyle,
-                backgroundColor: idx === data_earnings.length - 1 ? "#02686c" : "unset",
+                backgroundColor:
+                  idx === data_earnings.length - 1 ? "#02686c" : "unset",
               }}
             >
               <p style={styles.listLabelStyle}>{`$ ${item}`}</p>

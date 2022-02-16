@@ -4,3 +4,10 @@ export const data_earnings = [
 ];
 
 export const private_urls = ['/trivia'];
+
+export const appContextInitialValue = {
+  user: "",
+  category: "",
+  difficulty: "",
+  type: "",
+}
