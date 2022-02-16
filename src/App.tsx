@@ -58,7 +58,17 @@ function App() {
             />
           }
         />
-        <Route path="/trivia" element={<TriviaScreen questions={questions} />} />
+        <Route
+          path="/trivia"
+          element={
+            <TriviaScreen
+              questions={questions}
+              formValues={formValues!}
+              setQuestions={setQuestions}
+              setFormValues={setFormValues}
+            />
+          }
+        />
         <Route path="/*" element={<NotFoundScreen />} />
       </Routes>
     </div>

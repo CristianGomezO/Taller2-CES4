@@ -18,17 +18,30 @@ interface NavbarProps {
   playerName: string;
   earnings: number;
   dificulty: string;
+  setQuestions: (value: any) => void;
+  setFormValues: (value: any) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ dificulty, earnings, playerName }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  dificulty,
+  earnings,
+  playerName,
+  setFormValues,
+  setQuestions,
+}) => {
   let navigate = useNavigate();
   return (
     <Row justify="space-between">
       <Col>
-        <Button onClick={() => {
-          navigate("/", { replace: true });
-        }} type="primary">
-          Salir
+        <Button
+          onClick={() => {
+            setFormValues([]);
+            setQuestions([]);
+            navigate("/", { replace: true });
+          }}
+          type="primary"
+        >
+          Leave
         </Button>
         <label style={styles.label}>Player: </label>
         <label style={styles.labelValue}>{playerName}</label>

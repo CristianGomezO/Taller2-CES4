@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import QuestionsSection from "../components/QuestionsSection";
 import { data_earnings } from "../constants";
-import { IQuestions } from "../types";
+import { IFormValues, IQuestions } from "../types";
 import background from "./../assets/images/millionarieImage.jpg";
 
 const styles = {
@@ -49,23 +49,33 @@ const { Header, Sider, Content } = Layout;
 
 interface TriviaScreenProps {
   questions: IQuestions[];
+  formValues: IFormValues;
+  setQuestions: (value: any) => void;
+  setFormValues: (value: any) => void;
 }
 
-const TriviaScreen: React.FC<TriviaScreenProps> = ({ questions }) => {
+const TriviaScreen: React.FC<TriviaScreenProps> = ({
+  questions,
+  formValues,
+  setQuestions,
+  setFormValues
+}) => {
   return (
     <Layout>
       <Layout>
         <Header style={styles.headerStyle}>
           <Navbar
-            playerName="Edward andres"
+            playerName={formValues?.user}
             earnings={data_earnings[0]}
-            dificulty="easy"
+            dificulty={formValues?.difficulty}
+            setQuestions={setQuestions}
+            setFormValues={setFormValues}
           />
         </Header>
         <Content>
           <div className="triviaContent">
             <div style={{ ...styles.content, position: "absolute" }}></div>
-            <QuestionsSection questions={questions}/>
+            <QuestionsSection questions={questions} />
           </div>
         </Content>
       </Layout>
