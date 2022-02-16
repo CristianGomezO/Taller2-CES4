@@ -27,12 +27,18 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = () => {
       </div>
       <div>
         <Row style={{ justifyContent: "center" }}>
-          <Col className="answerBox">asdsa</Col>
-          <Col className="answerBox">asdsa</Col>
-        </Row>
-        <Row style={{ justifyContent: "center" }}>
-          <Col className="answerBox">asdsa</Col>
-          <Col className="answerBox">asdsa</Col>
+          <Col className="answerBox">
+            <p className="answerText">sadsadsa</p>
+          </Col>
+          <Col className="answerBox">
+            <p className="answerText">sadsadsa</p>
+          </Col>
+          <Col className="answerBox">
+            <p className="answerText">sadsadsa</p>
+          </Col>
+          <Col className="answerBox">
+            <p className="answerText">sadsadsa</p>
+          </Col>
         </Row>
       </div>
     </div>
