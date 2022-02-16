@@ -61,7 +61,7 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({ questions = [] }) =
       <div className="questionTimer"></div>
       <div style={styles.questionContainer}>
         <div className="question" style={{ textAlign: "center" }}>
-          <p className="answerText">{questions[0].question}</p>
+          <p className="answerText">{questions[0]?.question}</p>
         </div>
       </div>
       <div>
