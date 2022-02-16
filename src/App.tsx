@@ -3,13 +3,14 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import "./css/App.css";
 import LoginScreen from "./screens/LoginScreen";
 import TriviaScreen from "./screens/TriviaScreen";
-import { IFormValues } from "./types";
+import { IFormValues, IQuestions } from "./types";
 import showNotification from "./utils/notifications";
 import { startGameValidations } from "./utils/validations";
 import NotFoundScreen from "./screens/NotFoundScreen";
 
 function App() {
   const [formValues, setFormValues] = React.useState<IFormValues>();
+  const [questions, setQuestions] = React.useState<IQuestions[]>([]);
   let navigate = useNavigate();
 
   const onStartGame = React.useCallback(
@@ -26,6 +27,7 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           if (res.response_code === 0) {
+            setQuestions(res.results);
             navigate("/trivia", { replace: true });
           } else {
             showNotification("error", "ERROR", "error getting data");
@@ -48,7 +50,7 @@ function App() {
             />
           }
         />
-        <Route path="/trivia" element={<TriviaScreen />} />
+        <Route path="/trivia" element={<TriviaScreen questions={questions} />} />
         <Route path="/*" element={<NotFoundScreen />} />
       </Routes>
     </div>

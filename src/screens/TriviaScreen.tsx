@@ -3,6 +3,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import QuestionsSection from "../components/QuestionsSection";
 import { data_earnings } from "../constants";
+import { IQuestions } from "../types";
 import background from "./../assets/images/millionarieImage.jpg";
 
 const styles = {
@@ -40,17 +41,17 @@ const styles = {
     backgroundAttachment: "fixed",
     backgroundPosition: "center",
     opacity: "0.7",
-    backgroundColor: '#030231',
+    backgroundColor: "#030231",
   },
 };
 
 const { Header, Sider, Content } = Layout;
 
-interface TriviaScreenProps {}
+interface TriviaScreenProps {
+  questions: IQuestions[];
+}
 
-
-
-const TriviaScreen: React.FC<TriviaScreenProps> = () => {
+const TriviaScreen: React.FC<TriviaScreenProps> = ({ questions }) => {
   return (
     <Layout>
       <Layout>
@@ -63,9 +64,8 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
         </Header>
         <Content>
           <div className="triviaContent">
-            <div style={{ ...styles.content, position: "absolute",}}>
-            </div>
-            <QuestionsSection />
+            <div style={{ ...styles.content, position: "absolute" }}></div>
+            <QuestionsSection questions={questions}/>
           </div>
         </Content>
       </Layout>
@@ -81,7 +81,8 @@ const TriviaScreen: React.FC<TriviaScreenProps> = () => {
             <List.Item
               style={{
                 ...styles.listItemStyle,
-                backgroundColor: idx === data_earnings.length - 1 ? "#02686c" : "unset",
+                backgroundColor:
+                  idx === data_earnings.length - 1 ? "#02686c" : "unset",
               }}
             >
               <p style={styles.listLabelStyle}>{`$ ${item}`}</p>
