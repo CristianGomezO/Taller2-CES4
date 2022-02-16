@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import "./css/App.css";
 import LoginScreen from "./screens/LoginScreen";
 import TriviaScreen from "./screens/TriviaScreen";
@@ -7,10 +7,18 @@ import { IFormValues } from "./types";
 import showNotification from "./utils/notifications";
 import { startGameValidations } from "./utils/validations";
 import NotFoundScreen from "./screens/NotFoundScreen";
+import { private_urls } from "./constants";
 
 function App() {
   const [formValues, setFormValues] = React.useState<IFormValues>();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (!formValues && private_urls.find(url => url === location.pathname)) {
+      navigate("/", { replace: true });
+    }
+  }, [formValues, location.pathname, navigate]);
 
   const onStartGame = React.useCallback(
     async (values: IFormValues) => {
