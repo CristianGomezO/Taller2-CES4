@@ -43,6 +43,8 @@ const Navbar: React.FC<NavbarProps> = ({
         >
           Leave
         </Button>
+      </Col>
+      <Col>
         <label style={styles.label}>Player: </label>
         <label style={styles.labelValue}>{playerName}</label>
       </Col>
