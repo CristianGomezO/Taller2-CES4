@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import { IQuestions } from "../types";
 
 const styles = {
@@ -19,56 +19,37 @@ const styles = {
 };
 interface QuestionsSectionProps {
   questions: IQuestions[];
+  level: number;
+  answers: string[];
+  onSelectAnswer: (answer: string) => void;
 }
 
-const QuestionsSection: React.FC<QuestionsSectionProps> = ({ questions = [] }) => {
-  const [correctAnswerPosition, setCorrectAnswerPosition] =
-    React.useState<number>();
-  const [answers, setAnswers] = React.useState<Array<string>>([]);
-
-  const answersFunction = React.useCallback(() => {
-    let aTemp: string[] = [];
-    const randomNumber = Math.floor(Math.random() * 4);
-    setCorrectAnswerPosition(randomNumber);
-
-    aTemp[randomNumber] = questions[0].correct_answer;
-
-    for (let i = 0; i < questions[0].incorrect_answers.length + 1; i++) {
-      if (aTemp[i]) {
-        aTemp[i + 1] = questions[0].incorrect_answers[i];
-      } else {
-        aTemp[i] = questions[0].incorrect_answers[i];
-      }
-    }
-
-    aTemp.map((x, i) => {
-      if (!x) {
-        aTemp.splice(i, 1);
-      }
-    });
-
-    setAnswers(aTemp)
-  }, [questions]);
-
-  useEffect(() => {
-    if(questions.length){
-      answersFunction();
-    }
-  }, [answersFunction, questions]);
-
+const QuestionsSection: React.FC<QuestionsSectionProps> = ({
+  questions = [],
+  level,
+  answers,
+  onSelectAnswer,
+}) => {
   return (
     <div style={styles.mainContainer}>
       <div className="questionTimer"></div>
       <div style={styles.questionContainer}>
         <div className="question" style={{ textAlign: "center" }}>
-          <p className="answerText">{questions[0]?.question}</p>
+          <p className="answerText">{questions[level]?.question}</p>
         </div>
       </div>
       <div>
         <Row style={{ justifyContent: "center" }}>
-          {answers.map((x, i) => (
+          {answers.map((answer, i) => (
             <Col className="answerBox" key={i}>
-              <p className="answerText">{x}</p>
+              <div
+                onClick={() => {
+                  onSelectAnswer(answer);
+                }}
+                className="answerTextContainer"
+              >
+                <p className="answerText">{answer}</p>
+              </div>
             </Col>
           ))}
         </Row>

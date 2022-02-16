@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { appContextInitialValue, private_urls } from "./constants";
+import { private_urls } from "./constants";
 import "./css/App.css";
 import LoginScreen from "./screens/LoginScreen";
 import NotFoundScreen from "./screens/NotFoundScreen";

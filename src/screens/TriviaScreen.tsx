@@ -58,15 +58,53 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
   questions,
   formValues,
   setQuestions,
-  setFormValues
+  setFormValues,
 }) => {
+  const [level, setLevel] = React.useState<number>(0);
+  const [answers, setAnswers] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    console.log(questions[level]?.correct_answer);
+  }, [level, questions]);
+
+  const answersFunction = React.useCallback(() => {
+    if (level < 10) {
+      let aTemp: string[] = [...questions[level]?.incorrect_answers];
+      const randomNumber = Math.floor(Math.random() * 3);
+      aTemp[3] = aTemp[randomNumber];
+      aTemp[randomNumber] = questions[level].correct_answer;
+      setAnswers(aTemp);
+    }
+  }, [questions, level]);
+
+  const onSelectAnswer = React.useCallback(
+    (answer) => {
+      if (answer === questions[level].correct_answer) {
+        setLevel(level + 1);
+      }
+    },
+    [level, questions]
+  );
+
+  React.useEffect(() => {
+    console.log(level);
+  }, [level]);
+
+  React.useEffect(() => {
+    if (questions.length) {
+      answersFunction();
+    }
+  }, [answersFunction, questions]);
   return (
     <Layout>
       <Layout>
         <Header style={styles.headerStyle}>
           <Navbar
             playerName={formValues?.user}
-            earnings={data_earnings[0]}
+            earnings={
+              data_earnings[data_earnings.length - level - 1] ||
+              data_earnings[data_earnings.length - 1]
+            }
             dificulty={formValues?.difficulty}
             setQuestions={setQuestions}
             setFormValues={setFormValues}
@@ -75,7 +113,14 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
         <Content>
           <div className="triviaContent">
             <div style={{ ...styles.content, position: "absolute" }}></div>
-            <QuestionsSection questions={questions} />
+            {level < 10 ? (
+              <QuestionsSection
+                onSelectAnswer={onSelectAnswer}
+                level={level}
+                answers={answers}
+                questions={questions}
+              />
+            ) : null}
           </div>
         </Content>
       </Layout>
@@ -92,7 +137,9 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
               style={{
                 ...styles.listItemStyle,
                 backgroundColor:
-                  idx === data_earnings.length - 1 ? "#02686c" : "unset",
+                  idx === data_earnings.length - level - 1
+                    ? "#02686c"
+                    : "unset",
               }}
             >
               <p style={styles.listLabelStyle}>{`$ ${item}`}</p>
