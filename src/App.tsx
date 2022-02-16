@@ -12,6 +12,7 @@ import { startGameValidations } from "./utils/validations";
 function App() {
   const [formValues, setFormValues] = React.useState<IFormValues>();
   const [questions, setQuestions] = React.useState<IQuestions[]>([]);
+  const [timeOut, setTimeOut] = React.useState<boolean>(false);
   let navigate = useNavigate();
   const location = useLocation();
 
@@ -64,8 +65,10 @@ function App() {
             <TriviaScreen
               questions={questions}
               formValues={formValues!}
+              timeOut={timeOut}
               setQuestions={setQuestions}
               setFormValues={setFormValues}
+              setTimeOut={setTimeOut}
             />
           }
         />

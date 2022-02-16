@@ -50,15 +50,19 @@ const { Header, Sider, Content } = Layout;
 interface TriviaScreenProps {
   questions: IQuestions[];
   formValues: IFormValues;
+  timeOut: boolean;
   setQuestions: (value: any) => void;
   setFormValues: (value: any) => void;
+  setTimeOut: (value: boolean) => void;
 }
 
 const TriviaScreen: React.FC<TriviaScreenProps> = ({
   questions,
   formValues,
+  timeOut,
   setQuestions,
   setFormValues,
+  setTimeOut,
 }) => {
   const [level, setLevel] = React.useState<number>(0);
   const [answers, setAnswers] = React.useState<string[]>([]);
@@ -81,15 +85,12 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
     (answer) => {
       if (answer === questions[level].correct_answer) {
         setLevel(level + 1);
+      } else {
+        setTimeOut(true);
       }
     },
-    [level, questions]
+    [level, questions, setTimeOut]
   );
-
-  React.useEffect(() => {
-    console.log(level);
-  }, [level]);
-
   React.useEffect(() => {
     if (questions.length) {
       answersFunction();
@@ -108,19 +109,26 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
             dificulty={formValues?.difficulty}
             setQuestions={setQuestions}
             setFormValues={setFormValues}
+            setTimeOut={setTimeOut}
           />
         </Header>
         <Content>
           <div className="triviaContent">
             <div style={{ ...styles.content, position: "absolute" }}></div>
-            {level < 10 ? (
+            {level < 10 && !timeOut ? (
               <QuestionsSection
                 onSelectAnswer={onSelectAnswer}
                 level={level}
                 answers={answers}
                 questions={questions}
+                setTimeOut={setTimeOut}
               />
-            ) : null}
+            ) : (
+              <p>
+                You earned:{" "}
+                {level === 0 ? 0 : data_earnings[data_earnings.length - level]}
+              </p>
+            )}
           </div>
         </Content>
       </Layout>

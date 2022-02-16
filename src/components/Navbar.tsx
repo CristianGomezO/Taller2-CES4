@@ -20,6 +20,7 @@ interface NavbarProps {
   dificulty: string;
   setQuestions: (value: any) => void;
   setFormValues: (value: any) => void;
+  setTimeOut: (value: boolean) => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -28,6 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({
   playerName,
   setFormValues,
   setQuestions,
+  setTimeOut,
 }) => {
   let navigate = useNavigate();
   return (
@@ -37,6 +39,7 @@ const Navbar: React.FC<NavbarProps> = ({
           onClick={() => {
             setFormValues([]);
             setQuestions([]);
+            setTimeOut(false);
             navigate("/", { replace: true });
           }}
           type="primary"

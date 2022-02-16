@@ -1,6 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
 import { IQuestions } from "../types";
+import Timer from "./Timer";
 
 const styles = {
   mainContainer: {
@@ -22,6 +23,7 @@ interface QuestionsSectionProps {
   level: number;
   answers: string[];
   onSelectAnswer: (answer: string) => void;
+  setTimeOut: (value: boolean) => void;
 }
 
 const QuestionsSection: React.FC<QuestionsSectionProps> = ({
@@ -29,10 +31,11 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({
   level,
   answers,
   onSelectAnswer,
+  setTimeOut,
 }) => {
   return (
     <div style={styles.mainContainer}>
-      <div className="questionTimer"></div>
+      <Timer setTimeOut={setTimeOut} questionNumber={level}/>
       <div style={styles.questionContainer}>
         <div className="question" style={{ textAlign: "center" }}>
           <p className="answerText">{questions[level]?.question}</p>
