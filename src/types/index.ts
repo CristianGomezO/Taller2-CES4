@@ -15,3 +15,8 @@ export interface IFormValues {
   difficulty: string;
   type?: string;
 }
+
+export interface IResponse {
+  message?: string;
+  code: number;
+}

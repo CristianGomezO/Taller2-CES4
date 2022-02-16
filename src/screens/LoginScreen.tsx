@@ -34,16 +34,16 @@ const { Option } = Select;
 interface LoginScreenProps {
   formValues?: IFormValues;
   setFormValues: (values: IFormValues) => void;
+  onStartGame: (values: IFormValues) => void;
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = ({
   formValues,
   setFormValues,
+  onStartGame,
 }) => {
   const handleChange = React.useCallback(
     (field: any, value: string) => {
-      console.log(value);
-      
       const aTemp = { ...formValues };
       aTemp[field as keyof IFormValues] = value;
       setFormValues(aTemp as IFormValues);
@@ -103,8 +103,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             align="middle"
           >
             <Col span={6}>Difficulty</Col>
-            <Select defaultValue={""} style={{ width: "50%" }} 
-              onChange={(e) => handleChange("difficulty", e)}>
+            <Select
+              defaultValue={""}
+              style={{ width: "50%" }}
+              onChange={(e) => handleChange("difficulty", e)}
+            >
               <Option value={""}>Choose an option</Option>
               {difficulty_values.map((x, i) => (
                 <Option value={x.value} key={i}>
@@ -116,7 +119,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
         </Row>
         <Row style={styles.secondRow} justify="center" align="middle">
           <Col>
-            <Button type="primary">Enter to play</Button>
+            <Button type="primary" onClick={() => onStartGame(formValues!)}>
+              Enter to play
+            </Button>
           </Col>
         </Row>
       </Card>
