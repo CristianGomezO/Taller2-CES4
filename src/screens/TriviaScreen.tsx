@@ -41,7 +41,7 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     backgroundPosition: "center",
-    opacity: "0.7",
+    opacity: "0.8",
     backgroundColor: "#030231",
   },
 };
@@ -67,6 +67,8 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
 }) => {
   const [level, setLevel] = React.useState<number>(0);
   const [answers, setAnswers] = React.useState<string[]>([]);
+  const [isCorrectAnswer, setIsCorrectAnswer] = React.useState<boolean | undefined>(undefined);
+  const [idxSelectedAnswer, setIdxSelectedAnswer] = React.useState<number>(-1);
 
   React.useEffect(() => {
     console.log(questions[level]?.correct_answer);
@@ -83,14 +85,27 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
   }, [questions, level]);
 
   const onSelectAnswer = React.useCallback(
-    (answer) => {
+    (answer, answerIdx) => {
       if (answer === questions[level].correct_answer) {
-        delay(5000, () => {
-          setLevel(level + 1);
-        })
+        delay(2000, () => {
+          setIsCorrectAnswer(true);
+          delay(5000, () => {
+            setIdxSelectedAnswer(-1);
+            setIsCorrectAnswer(undefined);
+            setLevel(level + 1);
+          });
+        });
       } else {
-        setTimeOut(true);
+        delay(2000, () => {
+          setIsCorrectAnswer(false);
+          delay(5000, () => {
+            setIdxSelectedAnswer(-1);
+            setIsCorrectAnswer(undefined);
+            setTimeOut(true);
+          });
+        });
       }
+      setIdxSelectedAnswer(answerIdx);
     },
     [level, questions, setTimeOut]
   );
@@ -125,12 +140,18 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
                 answers={answers}
                 questions={questions}
                 setTimeOut={setTimeOut}
+                isCorrectAnswer={isCorrectAnswer}
+                idxSelectedAnswer={idxSelectedAnswer}
               />
             ) : (
-              <p>
-                You earned:{" "}
-                {level === 0 ? 0 : data_earnings[data_earnings.length - level]}
-              </p>
+              <div className="finishedBox">
+                <p className="finishedMessage">
+                  You earned:{" "}
+                  {level === 0
+                    ? 0
+                    : data_earnings[data_earnings.length - level]}
+                </p>
+              </div>
             )}
           </div>
         </Content>

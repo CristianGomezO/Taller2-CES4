@@ -18,10 +18,6 @@ export const trivia_categories: ICategoryValues[] = [
     name: "Entertainment: Music",
   },
   {
-    id: 13,
-    name: "Entertainment: Musicals & Theatres",
-  },
-  {
     id: 14,
     name: "Entertainment: Television",
   },

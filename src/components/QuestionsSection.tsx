@@ -22,7 +22,9 @@ interface QuestionsSectionProps {
   questions: IQuestions[];
   level: number;
   answers: string[];
-  onSelectAnswer: (answer: string) => void;
+  idxSelectedAnswer: number;
+  isCorrectAnswer: boolean | undefined;
+  onSelectAnswer: (answer: string, i: number) => void;
   setTimeOut: (value: boolean) => void;
 }
 
@@ -30,12 +32,24 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({
   questions = [],
   level,
   answers,
+  isCorrectAnswer,
+  idxSelectedAnswer,
   onSelectAnswer,
   setTimeOut,
 }) => {
+  const returnCorrectAnswerClassName = React.useCallback((i: number): string => {
+    if (idxSelectedAnswer === i && isCorrectAnswer === undefined) {
+      return "selectedAnswer";
+    } else if (idxSelectedAnswer === i && isCorrectAnswer) {
+      return "greenBox"
+    } else if (idxSelectedAnswer === i &&  isCorrectAnswer === false) {
+      return "redBox"
+    }
+    return "answerBox";
+  }, [isCorrectAnswer, idxSelectedAnswer])
   return (
     <div style={styles.mainContainer}>
-      <Timer setTimeOut={setTimeOut} questionNumber={level}/>
+      <Timer stopTimer={idxSelectedAnswer !== -1} setTimeOut={setTimeOut} questionNumber={level} />
       <div style={styles.questionContainer}>
         <div className="question" style={{ textAlign: "center" }}>
           <p className="answerText">{questions[level]?.question}</p>
@@ -44,10 +58,13 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({
       <div>
         <Row style={{ justifyContent: "center" }}>
           {answers.map((answer, i) => (
-            <Col className="answerBox" key={i}>
+            <Col
+              className={returnCorrectAnswerClassName(i)}
+              key={i}
+            >
               <div
                 onClick={() => {
-                  onSelectAnswer(answer);
+                  onSelectAnswer(answer, i);
                 }}
                 className="answerTextContainer"
               >
