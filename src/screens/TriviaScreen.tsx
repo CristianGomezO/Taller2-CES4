@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import QuestionsSection from "../components/QuestionsSection";
 import { data_earnings } from "../constants";
 import { IFormValues, IQuestions } from "../types";
+import { delay } from "../utils/delay";
 import background from "./../assets/images/millionarieImage.jpg";
 
 const styles = {
@@ -84,7 +85,9 @@ const TriviaScreen: React.FC<TriviaScreenProps> = ({
   const onSelectAnswer = React.useCallback(
     (answer) => {
       if (answer === questions[level].correct_answer) {
-        setLevel(level + 1);
+        delay(5000, () => {
+          setLevel(level + 1);
+        })
       } else {
         setTimeOut(true);
       }
