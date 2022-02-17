@@ -64,7 +64,9 @@ const QuestionsSection: React.FC<QuestionsSectionProps> = ({
             >
               <div
                 onClick={() => {
-                  onSelectAnswer(answer, i);
+                  if (idxSelectedAnswer === -1) {
+                    onSelectAnswer(answer, i);
+                  }
                 }}
                 className="answerTextContainer"
               >
